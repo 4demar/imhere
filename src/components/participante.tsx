@@ -1,4 +1,4 @@
-import { TextInput, TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 
 type props = {
   nome: string,
@@ -17,7 +17,6 @@ export function Participante({ nome, setRemover }: props) {
       </TouchableOpacity>
     </View>
   )
-
 }
 
 import { StyleSheet } from 'react-native'

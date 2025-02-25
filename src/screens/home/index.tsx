@@ -3,13 +3,9 @@ import { styles } from './styles';
 import { useEffect, useState } from 'react';
 import { Participante } from '../../components/participante';
 
-//  'Jose 2', 'Josefa 2', 'Maria 2', 'Pedro 2', 'João 2',
-//       'Jose 3', 'Josefa 3', 'Maria 3', 'Pedro 3', 'João 3'
-
 export default function Home() {
   const [listaParticipante, setListaParticipante] = useState<string[]>([])
   const [nomeParticipante, setNomeParticipante] = useState('')
-
 
   const inserirParticipante = () => {
     if (nomeParticipante === '')
@@ -22,26 +18,14 @@ export default function Home() {
 
     //Sem imutabilidade
     //listaParticipante.push(nomeParticipante)
-    Alert.alert(`Novo participante inserido`)
     setNomeParticipante('')
   }
 
   const removerParticipante = (nome: string) => {
-    const lista = listaParticipante.filter(x => x !== nome)
-
-    if (lista === listaParticipante) {
-      return Alert.alert('Problema ao remover este participante, execute novamente')
-    }
-
-    Alert.alert('Participante removido!')
-    setListaParticipante(lista)
-  }
-
-  const perguntaRemover = (nome: string) => {
     Alert.alert('Remover', `Deseja remover o participante ${nome}?`, [
       {
         text: 'Sim',
-        onPress: () => removerParticipante(nome)
+        onPress: () => setListaParticipante(prevState => prevState.filter(participante => participante !== nome))
       },
       {
         text: 'Não',
@@ -49,7 +33,6 @@ export default function Home() {
       }
     ])
   }
-
 
   return (
     <View style={styles.container}>
@@ -68,7 +51,6 @@ export default function Home() {
           placeholderTextColor='#6b6b6b'
           value={nomeParticipante}
           onChangeText={setNomeParticipante}
-        // keyboardType='numeric'
         />
         <TouchableOpacity style={styles.button} onPress={inserirParticipante}>
           <Text style={styles.buttonText}>
@@ -86,7 +68,7 @@ export default function Home() {
           <Participante
             key={item}
             nome={item}
-            setRemover={perguntaRemover}
+            setRemover={removerParticipante}
           />
         )}
         ListEmptyComponent={() => (
