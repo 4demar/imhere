@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, View, useColorScheme } from 'react-native';
+import Home from './src/screens/home';
 
 export default function App() {
+  const colorScheme = useColorScheme()
+
+  console.log(colorScheme)
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar
+        barStyle={colorScheme === 'dark' ? 'dark-content' : 'light-content'}
+        backgroundColor='transparent'
+        translucent
+      />
+      <View style={colorScheme === 'dark' ? styles.light : styles.dark}>
+        <Home />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  dark: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#131016',
+    padding: 18
   },
+  light: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 18
+  },
+  statusBar: {
+
+  }
 });
